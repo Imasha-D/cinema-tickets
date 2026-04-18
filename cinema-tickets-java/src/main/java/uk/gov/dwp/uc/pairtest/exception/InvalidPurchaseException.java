@@ -23,6 +23,8 @@ public class InvalidPurchaseException extends RuntimeException {
 
         INVALID_ACCOUNT_ID("Invalid Account ID"),
 
+        EMPTY_REQUEST("At least one ticket type must be requested"),
+
         INVALID_REQUEST("Invalid ticket requested"),
 
         INVALID_TICKET_TYPE("Ticket type must not be null"),

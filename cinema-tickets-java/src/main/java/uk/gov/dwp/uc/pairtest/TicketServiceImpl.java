@@ -53,7 +53,7 @@ public class TicketServiceImpl implements TicketService {
                     infantCount += ticketTypeRequest.getNoOfTickets();
                     break;
                 default:
-                    throw new InvalidPurchaseException(InvalidPurchaseException.Reason.INVALID_REQUEST);
+                    throw new InvalidPurchaseException(InvalidPurchaseException.Reason.EMPTY_REQUEST);
             }
 
         }
