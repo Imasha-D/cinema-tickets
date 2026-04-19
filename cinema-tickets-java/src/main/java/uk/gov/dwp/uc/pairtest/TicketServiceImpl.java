@@ -1,5 +1,7 @@
 package uk.gov.dwp.uc.pairtest;
 
+import java.util.Objects;
+
 import thirdparty.paymentgateway.TicketPaymentService;
 import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
@@ -11,7 +13,7 @@ public class TicketServiceImpl implements TicketService {
      * Service Layer
      */
 
-    // fixed ticket prices
+    // constants : fixed ticket prices
     private static final int ADULT_PRICE = 25;
     private static final int CHILD_PRICE = 15;
     private static final int MAX_TICKETS = 25;
@@ -20,10 +22,10 @@ public class TicketServiceImpl implements TicketService {
     private final TicketPaymentService ticketPaymentService;
     private final SeatReservationService seatReservationService;
 
-    // constructor
+    // Constructor injection
     public TicketServiceImpl(TicketPaymentService ticketPaymentService, SeatReservationService seatReservationService) {
-        this.ticketPaymentService = ticketPaymentService;
-        this.seatReservationService = seatReservationService;
+        this.ticketPaymentService = Objects.requireNonNull(ticketPaymentService);
+        this.seatReservationService = Objects.requireNonNull(seatReservationService);
     }
 
     @Override

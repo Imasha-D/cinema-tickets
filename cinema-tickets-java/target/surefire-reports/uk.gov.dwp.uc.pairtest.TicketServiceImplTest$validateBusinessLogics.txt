@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: uk.gov.dwp.uc.pairtest.TicketServiceImplTest$validateBusinessLogics
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.050 s -- in uk.gov.dwp.uc.pairtest.TicketServiceImplTest$validateBusinessLogics
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.223 s -- in uk.gov.dwp.uc.pairtest.TicketServiceImplTest$validateBusinessLogics
