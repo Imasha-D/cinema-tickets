@@ -157,38 +157,24 @@ class TicketServiceImplTest {
                 void shouldRejectWhen_AccountIdIsNull() {
 
                         TicketTypeRequest req = request(Type.ADULT, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         () -> ticketService.purchaseTickets(null, req));
 
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
 
                 @Test
                 void shouldRejectWhen_AccountIdEqualsZero() {
                         TicketTypeRequest req = request(Type.ADULT, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         () -> ticketService.purchaseTickets(0L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
                 @Test
                 void shouldRejectWhen_AccountIdIsNegative() {
                         TicketTypeRequest req = request(Type.ADULT, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         () -> ticketService.purchaseTickets(-1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -201,75 +187,48 @@ class TicketServiceImplTest {
                 @Test
                 void shouldRejectWhen_TicketRequestIsNull() {
 
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_REQUEST,
                                         () -> ticketService.purchaseTickets(1L, (TicketTypeRequest[]) null));
 
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_REQUEST,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
 
                 @Test
                 void shouldRejectWhen_TicketRequestIsNotProvided() {
 
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_REQUEST,
                                         () -> ticketService.purchaseTickets(1L));
 
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_REQUEST,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
 
                 @Test
                 void shouldRejectWhen_RequestContainsNullTicketTypeRequest() {
 
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
                                         () -> ticketService.purchaseTickets(1L, (TicketTypeRequest) null));
 
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
 
                 @Test
                 void shouldRejectWhen_RequestHasNoTicketType() {
                         TicketTypeRequest req = request(null, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
                 @Test
                 void shouldRejectWhen_RequestTicketQuantityIsZero() {
                         TicketTypeRequest req = request(Type.ADULT, 0);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
                 @Test
                 void shouldRejectWhen_RequestTicketQuantityIsNegative() {
                         TicketTypeRequest req = request(Type.ADULT, -1);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -282,13 +241,8 @@ class TicketServiceImplTest {
                 @Test
                 void shouldRejectWhen_MoreThanTwentyFiveTicketsPurchased() {
                         TicketTypeRequest req = request(Type.ADULT, 26);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.MAX_TICKET_LIMIT_EXCEEDED,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.MAX_TICKET_LIMIT_EXCEEDED,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -296,26 +250,16 @@ class TicketServiceImplTest {
                 @Test
                 void shouldRejectWhen_ChildTicketsWithoutAdult() {
                         TicketTypeRequest req = request(Type.CHILD, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
                 @Test
                 void shouldRejectWhen_InfantTicketsWithoutAdult() {
                         TicketTypeRequest req = request(Type.INFANT, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         () -> ticketService.purchaseTickets(1L, req));
-
-                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -323,13 +267,8 @@ class TicketServiceImplTest {
                 void shouldRejectWhen_ChildAndInfantTicketsWithoutAdult() {
                         TicketTypeRequest req1 = request(Type.CHILD, 2);
                         TicketTypeRequest req2 = request(Type.INFANT, 2);
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         () -> ticketService.purchaseTickets(1L, req1, req2));
-
-                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -339,14 +278,8 @@ class TicketServiceImplTest {
                         TicketTypeRequest req1 = request(Type.ADULT, 1);
                         TicketTypeRequest req2 = request(Type.INFANT, 2);
 
-                        assertInvalidPurchase(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,() -> ticketService.purchaseTickets(1L, req1,req2));
-                        // InvalidPurchaseException exception = assertThrows(
-                        //                 InvalidPurchaseException.class,
-                        //                 () -> ticketService.purchaseTickets(1L, req1, req2));
-
-                        // assertEquals(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
-                        //                 exception.getReason());
-                        // verifyNoInteractions(ticketPaymentService, seatReservationService);
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
+                                        () -> ticketService.purchaseTickets(1L, req1, req2));
 
                 }
 
