@@ -7,6 +7,8 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
 import thirdparty.paymentgateway.TicketPaymentService;
 import thirdparty.seatbooking.SeatReservationService;
 import uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest;
@@ -73,7 +75,7 @@ class TicketServiceImplTest {
                 }
 
                 @Test
-                void shouldAllowInfantsEqualToAdults() { //boundary case
+                void shouldAllowInfantsEqualToAdults() { // boundary case
                         Long accountId = 6L;
 
                         ticketService.purchaseTickets(
@@ -337,13 +339,14 @@ class TicketServiceImplTest {
                         TicketTypeRequest req1 = request(Type.ADULT, 1);
                         TicketTypeRequest req2 = request(Type.INFANT, 2);
 
-                        InvalidPurchaseException exception = assertThrows(
-                                        InvalidPurchaseException.class,
-                                        () -> ticketService.purchaseTickets(1L, req1, req2));
+                        assertInvalidPurchase(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,() -> ticketService.purchaseTickets(1L, req1,req2));
+                        // InvalidPurchaseException exception = assertThrows(
+                        //                 InvalidPurchaseException.class,
+                        //                 () -> ticketService.purchaseTickets(1L, req1, req2));
 
-                        assertEquals(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
-                                        exception.getReason());
-                        verifyNoInteractions(ticketPaymentService, seatReservationService);
+                        // assertEquals(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
+                        //                 exception.getReason());
+                        // verifyNoInteractions(ticketPaymentService, seatReservationService);
 
                 }
 
@@ -352,6 +355,12 @@ class TicketServiceImplTest {
         // Helper method
         private TicketTypeRequest request(Type type, int quantity) {
                 return new TicketTypeRequest(type, quantity);
+        }
+
+        private void assertInvalidPurchase(InvalidPurchaseException.Reason expectedReason, Executable action) {
+                InvalidPurchaseException exception = assertThrows(InvalidPurchaseException.class, action);
+                assertEquals(expectedReason, exception.getReason());
+                verifyNoInteractions(ticketPaymentService, seatReservationService);
         }
 
 }
