@@ -159,7 +159,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(null, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
@@ -171,7 +171,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(0L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -184,7 +184,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(-1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_ACCOUNT_ID,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -203,7 +203,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, (TicketTypeRequest[]) null));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_REQUEST,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_REQUEST,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
@@ -215,7 +215,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_REQUEST,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_REQUEST,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
@@ -227,7 +227,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, (TicketTypeRequest) null));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
                 }
@@ -239,7 +239,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_TYPE,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -252,7 +252,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -265,7 +265,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
+                        assertEquals(InvalidPurchaseException.Reason.INVALID_TICKET_QUANTITY,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -284,7 +284,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.MAX_TICKET_LIMIT_EXCEEDED,
+                        assertEquals(InvalidPurchaseException.Reason.MAX_TICKET_LIMIT_EXCEEDED,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -298,7 +298,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.ADULT_REQUIRED,
+                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -311,7 +311,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.ADULT_REQUIRED,
+                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -325,7 +325,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req1, req2));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.ADULT_REQUIRED,
+                        assertEquals(InvalidPurchaseException.Reason.ADULT_REQUIRED,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
@@ -341,7 +341,7 @@ class TicketServiceImplTest {
                                         InvalidPurchaseException.class,
                                         () -> ticketService.purchaseTickets(1L, req1, req2));
 
-                        assertEquals(uk.gov.dwp.uc.pairtest.exception.InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
+                        assertEquals(InvalidPurchaseException.Reason.INFANTS_EXCEED_ADULTS,
                                         exception.getReason());
                         verifyNoInteractions(ticketPaymentService, seatReservationService);
 
