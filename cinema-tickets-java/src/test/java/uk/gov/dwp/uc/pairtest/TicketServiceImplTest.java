@@ -73,7 +73,7 @@ class TicketServiceImplTest {
                 }
 
                 @Test
-                void shouldAllowInfantsEqualToAdults() {
+                void shouldAllowInfantsEqualToAdults() { //boundary case
                         Long accountId = 6L;
 
                         ticketService.purchaseTickets(
