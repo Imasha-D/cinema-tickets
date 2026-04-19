@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project is a solution to the Department for Work and Pensions (DWP) coding exercise for the **Java Software Engineer** role.
 Application ID number: 16746194
 Reference No: 445853
+This project is a solution to the Department for Work and Pensions (DWP) coding exercise for the **Java Software Engineer** role.
 It implements a ticket purchasing service that:
 
 * Validates ticket purchase requests
