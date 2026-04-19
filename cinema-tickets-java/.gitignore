@@ -1,5 +1,13 @@
+# Maven
 target/
+
+# Compiled files
 *.class
+
+# IDE
 .idea/
 .vscode/
+*.iml
+
+# OS
 .DS_Store
